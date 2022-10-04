@@ -62,6 +62,7 @@
 						<th>Sobrenome</th>
 						<th>Idade</th>
 						<th>Editar</th>
+						<th>Excluir</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -73,7 +74,12 @@
 						<th>
 							<a class="btn-floating  waves-effect waves-light red"
 							th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">
-							<i class="material-icons right">create</i></a>
+							<i class="material-icons right">edit</i></a>
+						</th>
+						<th>
+							<a class="btn-floating  waves-effect waves-light red"
+							th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">
+							<i class="material-icons right">delete_forever</i></a>
 						</th>
 					</tr>
 				</tbody>
