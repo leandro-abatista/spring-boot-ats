@@ -64,6 +64,14 @@ public class Telefone implements Serializable {
 	public void setOperadora(String operadora) {
 		this.operadora = operadora;
 	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 
 	@Override
 	public int hashCode() {
