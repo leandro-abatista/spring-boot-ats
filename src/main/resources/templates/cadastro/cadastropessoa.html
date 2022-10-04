@@ -29,16 +29,19 @@
     <div class="section">
     	
     	<div class="card-content grey lighten-4">
-			<form id="formPessoa" class="formPessoa" action="salvarpessoa" method="post">
+			<form id="formPessoa" class="formPessoa" action="salvarpessoa" method="post" th:object="${objpessoa}">
+				
+				<label for="id">ID:</label>
+				<input type="text" id="id" th:field="*{id}" readonly="readonly">
 				
 				<label for="nome">Nome:</label>
-				<input type="text" id="nome" name="nome">
+				<input type="text" id="nome" name="nome" th:field="*{nome}">
 				
 				<label for="sobrenome">Sobrenome:</label>
-				<input type="text" id="sobrenome" name="sobrenome">
+				<input type="text" id="sobrenome" name="sobrenome" th:field="*{sobrenome}">
 				
 				<label for="idade">Idade:</label>
-				<input type="text" id="idade" name="idade">
+				<input type="text" id="idade" name="idade" th:field="*{idade}">
 				
 				<button class="btn waves-effect waves-light" type="submit" name="salvar">Salvar
 				   <i class="material-icons right">save</i>
@@ -58,6 +61,7 @@
 						<th>Nome</th>
 						<th>Sobrenome</th>
 						<th>Idade</th>
+						<th>Editar</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,6 +70,11 @@
 						<th th:text="${pessoa.nome}"></th>
 						<th th:text="${pessoa.sobrenome}"></th>
 						<th th:text="${pessoa.idade}"></th>
+						<th>
+							<a class="btn-floating  waves-effect waves-light red"
+							th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">
+							<i class="material-icons right">create</i></a>
+						</th>
 					</tr>
 				</tbody>
 				<tfoot>
