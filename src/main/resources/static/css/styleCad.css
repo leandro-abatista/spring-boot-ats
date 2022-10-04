@@ -1,3 +1,5 @@
+
+
 .formPessoa{
 	box-shadow: 0px 0px 5px red;
 	padding-top: 10px;
@@ -5,7 +7,7 @@
 	padding-bottom: 10px;
 	padding-right: 10px;
 	margin-top: 20px;
-	font-size: 17px;
+	font-size: 18px;
 }
 
 .tabelaPessoa{
@@ -15,4 +17,17 @@
 	padding-bottom: 10px;
 	padding-right: 10px;
 	margin-top: 20px;
+}
+
+.formPesquisa{
+	box-shadow: 0px 0px 5px red;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	margin-top: 20px;
+}
+
+.botaoPesquisar{
+	color: DeepSkyBlue;
 }

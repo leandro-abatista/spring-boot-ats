@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.curso.springboot.classes.model.Pessoa;
@@ -27,6 +29,7 @@ public class PessoaController {
 	public ModelAndView inicio() {
 		
 		ModelAndView view = new ModelAndView("cadastro/cadastropessoa");
+		view.addObject("pessoas", pessoaRepository.findAll());
 		view.addObject("objpessoa", new Pessoa());
 		return view;
 	}
@@ -78,6 +81,15 @@ public class PessoaController {
 		pessoaRepository.deleteById(idpessoa);
 		ModelAndView view = new ModelAndView("cadastro/cadastropessoa");
 		view.addObject("pessoas", pessoaRepository.findAll());
+		view.addObject("objpessoa", new Pessoa());
+		return view;
+	}
+	
+	@PostMapping("**/pesquisarpessoa")
+	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa) {
+		
+		ModelAndView view = new ModelAndView("cadastro/cadastropessoa");
+		view.addObject("pessoas", pessoaRepository.findPessoaByName(nomepesquisa));
 		view.addObject("objpessoa", new Pessoa());
 		return view;
 	}
