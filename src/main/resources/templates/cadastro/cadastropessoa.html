@@ -31,39 +31,65 @@
     	<div class="card-content grey lighten-4">
 			<form id="formPessoa" class="formPessoa" action="salvarpessoa" method="post" th:object="${objpessoa}">
 				
-				<label for="id">ID:</label>
-				<input type="text" id="id" th:field="*{id}" readonly="readonly">
+				<div class="row">
+					<div class="input-field col s3">
+						<label for="id">ID:</label>
+						<input type="text" id="id" th:field="*{id}" readonly="readonly">
+					</div>
+				</div>
 				
-				<label for="nome">Nome:</label>
-				<input type="text" id="nome" name="nome" th:field="*{nome}">
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="nome">Nome:</label>
+						<input type="text" id="nome" name="nome" th:field="*{nome}" placeholder="Digite seu nome">
+					</div>
+					
+					<div class="input-field col s6">
+						<label for="sobrenome">Sobrenome:</label>
+						<input type="text" id="sobrenome" name="sobrenome" th:field="*{sobrenome}" 
+							placeholder="Digite seu sobrenome">
+					</div>
+				</div>
 				
-				<label for="sobrenome">Sobrenome:</label>
-				<input type="text" id="sobrenome" name="sobrenome" th:field="*{sobrenome}">
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="idade">Idade:</label>
+						<input type="text" id="idade" name="idade" th:field="*{idade}" placeholder="Digite sua idade">
+					</div>
+				</div>
 				
-				<label for="idade">Idade:</label>
-				<input type="text" id="idade" name="idade" th:field="*{idade}">
-				
-				<button class="btn waves-effect waves-light" type="submit" name="salvar">Salvar
-				   <i class="material-icons right">save</i>
-				</button>
-				
-				<a class="waves-effect waves-light btn red"
-					href="/listapessoas">
-					<i class="material-icons right">list</i>Lista Pessoas</a>
+				<div class="row">
+					<button class="btn waves-effect waves-light blue darken-3" type="submit"
+						onclick="document.getElementById('formPessoa').reset();">Novo
+					   <i class="material-icons right">autorenew</i>
+					</button>
+					
+					<button class="btn waves-effect waves-light" type="submit" name="salvar">Salvar
+					   <i class="material-icons right">save</i>
+					</button>
+					
+					<a class="waves-effect waves-light btn red right"
+						href="/listapessoas">
+						<i class="material-icons right">list</i>Lista Pessoas</a>
+				</div>
 			</form>
 		</div>
 		
 		<div class="card-content grey lighten-4">
 			<form class="formPesquisa" action="pesquisarpessoa" method="post">
 				
-				<label for="pesquisanome">Pesquisa por nome:</label>
-				<input type="text" id="pesquisanome" name="nomepesquisa">
-				
-				
-				<button class="btn waves-effect waves-light botaoPesquisar" type="submit">Buscar
-				   <i class="material-icons right">search</i>
-				</button>
-				
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="pesquisanome">Pesquisa por nome:</label>
+						<input type="text" id="pesquisanome" name="nomepesquisa">
+					</div>
+					
+					<div class="input-field col s6">
+						<button class="btn waves-effect waves-light teal lighten-1" type="submit">Buscar
+						   <i class="material-icons right">search</i>
+						</button>
+					</div>
+				</div>
 			</form>
 		</div>
 		
@@ -86,7 +112,7 @@
 						<th th:text="${pessoa.sobrenome}"></th>
 						<th th:text="${pessoa.idade}"></th>
 						<th>
-							<a class="btn-floating  waves-effect waves-light red"
+							<a class="btn-floating  waves-effect waves-light amber lighten-1"
 							th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">
 							<i class="material-icons right">edit</i></a>
 						</th>
@@ -105,19 +131,21 @@
     </div>
   </div>
       
-  <footer class="page-footer orange">
+  <footer class="page-footer  light-blue darken-1">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+          <h5 class="white-text">ArfaxTechSoft</h5>
+          <p class="grey-text text-lighten-4">Projeto desenvolvido usando as principais tecnologias do mercado. Spring Boot - Thymeleaf - Material Design Lite</p>
 		</div>
 	  </div>
 	</div>
 
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      	Desenvolvido por Leandro Amorim
+      	<a class="orange-text text-lighten-3" href="https://github.com/lheanndroaluno/spring-boot-ats.git"> 
+      	Acesse meu GitHub para ver o código.</a>
       </div>
     </div>
   </footer>
