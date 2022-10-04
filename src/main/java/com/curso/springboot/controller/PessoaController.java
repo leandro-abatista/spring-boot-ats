@@ -66,6 +66,11 @@ public class PessoaController {
 		return view;
 	}
 	
+	/**
+	 * Método para editar um registro
+	 * @param idpessoa
+	 * @return
+	 */
 	@GetMapping("/editarpessoa/{idpessoa}")
 	public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
 		
@@ -75,6 +80,11 @@ public class PessoaController {
 		return view;
 	}
 	
+	/**
+	 * Método para remover um registro
+	 * @param idpessoa
+	 * @return
+	 */
 	@GetMapping("/removerpessoa/{idpessoa}")
 	public ModelAndView remover(@PathVariable("idpessoa") Long idpessoa) {
 		
@@ -85,12 +95,26 @@ public class PessoaController {
 		return view;
 	}
 	
+	/**
+	 * Método para pesquisar por nome
+	 * @param nomepesquisa
+	 * @return
+	 */
 	@PostMapping("**/pesquisarpessoa")
 	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa) {
 		
 		ModelAndView view = new ModelAndView("cadastro/cadastropessoa");
 		view.addObject("pessoas", pessoaRepository.findPessoaByName(nomepesquisa));
 		view.addObject("objpessoa", new Pessoa());
+		return view;
+	}
+	
+	@GetMapping("/telefones/{idpessoa}")
+	public ModelAndView addTelefones(@PathVariable("idpessoa") Long idpessoa) {
+		
+		ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
+		Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa);
+		view.addObject("objpessoa", pessoa.get());
 		return view;
 	}
 }

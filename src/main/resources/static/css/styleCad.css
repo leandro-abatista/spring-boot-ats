@@ -28,6 +28,21 @@
 	margin-top: 20px;
 }
 
-.botaoPesquisar{
-	color: DeepSkyBlue;
+.detalhes{
+	box-shadow: 0px 0px 5px red;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	margin-top: 20px;
 }
+
+.pdetalhes{
+	box-shadow: 0px 0px 5px red;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	margin-top: 20px;
+}
+
