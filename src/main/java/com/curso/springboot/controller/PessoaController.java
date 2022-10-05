@@ -1,9 +1,15 @@
 package com.curso.springboot.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +57,22 @@ public class PessoaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-	public ModelAndView salvar(Pessoa pessoa) {
+	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult result) {
+		
+		if (result.hasErrors()) {/*se tiver erros*/
+			ModelAndView view = new ModelAndView("cadastro/cadastropessoa");
+			Iterable<Pessoa> pessoas = pessoaRepository.findAll();
+			view.addObject("pessoas", pessoas);
+			view.addObject("objpessoa", pessoa);/*Esse objeto vem da view e fica com os dados em tela*/
+			
+			List<String> mensagem = new ArrayList<>();
+			for (ObjectError objectError : result.getAllErrors()) {
+				mensagem.add(objectError.getDefaultMessage());/*Vem das anotações da classe pessoa*/
+			}
+			
+			view.addObject("mensagem", mensagem);/*Envia as mensagem para a tela do usuário*/
+			return view;
+		}
 		
 		pessoaRepository.save(pessoa);
 		
@@ -130,11 +151,28 @@ public class PessoaController {
 	}
 	
 	@PostMapping("**/addtelefonepessoa/{pessoaid}")
-	public ModelAndView addFonePessoa(Telefone telefone, @PathVariable("pessoaid") Long pessoaid) {
+	public ModelAndView addFonePessoa(@Valid Telefone telefone, 
+									  @PathVariable("pessoaid") Long pessoaid,
+									  BindingResult result) {
 		
 		Pessoa pessoa = pessoaRepository.findById(pessoaid).get();
 		telefone.setPessoa(pessoa);
 		telefoneRepository.save(telefone);
+		
+		if (result.hasErrors()) {
+			ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
+			view.addObject("objpessoa", pessoa);
+			view.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
+			
+			List<String> mensagem = new ArrayList<>();
+			for (ObjectError objectError : result.getAllErrors()) {
+				mensagem.add(objectError.getDefaultMessage());/*Vem das anotações da classe pessoa*/
+			}
+			
+			view.addObject("mensagem", mensagem);/*Envia as mensagem para a tela do usuário*/
+			
+			return view;
+		}
 		
 		ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
 		view.addObject("objpessoa", pessoa);

@@ -42,27 +42,31 @@
     		</div>
     	</div>
     	
+    	<div th:each="msg : ${mensagem}">
+    		<span th:text="${msg}"></span>
+    	</div>
+    	
     	<div class="card-content  red lighten-1">
     		<p class="pdetalhes">[ Cadastro de Telefones ]</p>
     	</div>
     	<div class="card-content grey lighten-4">
-    		<form id="formTelefone" class="formTelefone" 
+    		<form id="formTelefone" class="formTelefone"
     			th:action="@{/addtelefonepessoa/{pessoaid}(pessoaid=${objpessoa.id})}" method="post">
 				
 				<div class="row">
 					<div class="input-field col s4">
 						<label for="numero">Número:</label>
-						<input class="numero" type="text" id="numero" name="numero" required="required">
+						<input class="numero" type="text" id="numero" name="numero">
 					</div>
 					
 					<div class="input-field col s4">
 						<label for="operadora">Operadora:</label>
-						<input type="text" id="operadora" name="operadora" required="required">
+						<input type="text" id="operadora" name="operadora">
 					</div>
 					
 					<div class="input-field col s4">
 						<label for="tipo">Tipo:</label>
-						<input type="text" id="tipo" name="tipo" required="required">
+						<input type="text" id="tipo" name="tipo">
 					</div>
 				</div>
 				

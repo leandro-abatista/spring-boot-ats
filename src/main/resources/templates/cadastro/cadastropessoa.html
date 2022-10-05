@@ -27,6 +27,10 @@
   
   <div class="container">
     <div class="section">
+    
+    	<div th:each="msg : ${mensagem}">
+    		<span th:text="${msg}"></span>
+    	</div>
     	
     	<div class="card-content  red lighten-1">
     		<p class="pdetalhes">[ Cadastro de Pessoas ]</p>
@@ -44,22 +48,20 @@
 				<div class="row">
 					<div class="input-field col s6">
 						<label for="nome">Nome:</label>
-						<input type="text" id="nome" name="nome" th:field="*{nome}" placeholder="Digite seu nome"
-						required="required">
+						<input type="text" id="nome" name="nome" th:field="*{nome}" placeholder="Digite seu nome">
 					</div>
 					
 					<div class="input-field col s6">
 						<label for="sobrenome">Sobrenome:</label>
 						<input type="text" id="sobrenome" name="sobrenome" th:field="*{sobrenome}" 
-							placeholder="Digite seu sobrenome" required="required">
+							placeholder="Digite seu sobrenome">
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="input-field col s6">
 						<label for="idade">Idade:</label>
-						<input type="text" id="idade" name="idade" th:field="*{idade}" placeholder="Digite sua idade"
-							required="required">
+						<input type="text" id="idade" name="idade" th:field="*{idade}" placeholder="Digite sua idade">
 					</div>
 				</div>
 				

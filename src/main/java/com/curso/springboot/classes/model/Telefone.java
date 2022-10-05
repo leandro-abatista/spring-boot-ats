@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -21,12 +23,20 @@ public class Telefone implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(nullable = false, length = 14)
-	private String numero;
-	@Column(nullable = false, length = 20)
-	private String tipo;
+	
 	@Column(nullable = false, length = 15)
+	@NotEmpty(message = "O campo número não pode ser vazio")
+	@NotNull(message = "O campo número não pode ser nulo")
+	private String numero;
+	
+	@Column(nullable = false, length = 20)
+	@NotEmpty(message = "O campo tipo não pode ser vazio")
+	@NotNull(message = "O campo tipo não pode ser nulo")
+	private String tipo;
+	
+	@Column(nullable = false, length = 15)
+	@NotEmpty(message = "O campo operadora não pode ser vazio")
+	@NotNull(message = "O campo operadora não pode ser nulo")
 	private String operadora;
 	
 	@ManyToOne /* muitos para um */
