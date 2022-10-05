@@ -25,6 +25,11 @@ public class PessoaController {
 	
 	@Autowired
 	private TelefoneRepository telefoneRepository;
+	
+	@GetMapping("/principal")
+	public String principal() {
+		return "principal";
+	} 
 
 	/**
 	 * Método de início
@@ -120,6 +125,7 @@ public class PessoaController {
 		ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
 		Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa);
 		view.addObject("objpessoa", pessoa.get());
+		view.addObject("telefones", telefoneRepository.getTelefones(idpessoa));
 		return view;
 	}
 	
@@ -132,6 +138,7 @@ public class PessoaController {
 		
 		ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
 		view.addObject("objpessoa", pessoa);
+		view.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
 		return view;
 	}
 }

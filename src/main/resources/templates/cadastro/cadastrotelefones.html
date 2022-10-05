@@ -19,7 +19,9 @@
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
       <ul class="right hide-on-med-and-down">
-        <li><a class="btn waves-effect waves-light red lighten-1" href="/cadastropessoa">Cadastro Pessoa</a></li>
+        <li><a class="btn waves-effect waves-light red lighten-1" href="/cadastropessoa">
+        	<i class="material-icons right">reply</i>
+        Cadastro Pessoa</a></li>
       </ul>
 	</div>
   </nav>
@@ -50,7 +52,7 @@
 				<div class="row">
 					<div class="input-field col s4">
 						<label for="numero">Número:</label>
-						<input type="text" id="numero" name="numero" required="required">
+						<input class="numero" type="text" id="numero" name="numero" required="required">
 					</div>
 					
 					<div class="input-field col s4">
@@ -75,6 +77,39 @@
 					</button>
 				</div>
 			</form>
+    	</div>
+    	
+    	<div class="card-content  red lighten-1">
+    		<p class="pdetalhes">[ Telefones Cadastrados ]</p>
+    	</div>
+    	<div class="card-content grey lighten-4">
+    		<table id="table-2" class="tabelaTelefone">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Número</th>
+						<th>Operadora</th>
+						<th>Tipo</th>
+						<th>Excluir</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tel : ${telefones}">
+						<th th:text="${tel.id}"></th>
+						<th th:text="${tel.numero}"></th>
+						<th th:text="${tel.operadora}"></th>
+						<th th:text="${tel.tipo}"></th>
+						
+						<th><!-- th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}" -->
+							<a class="btn-floating  waves-effect waves-light red"
+							>
+							<i class="material-icons right">delete_forever</i></a>
+						</th>
+					</tr>
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>
     	</div>
     	
     	
@@ -104,7 +139,24 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/materialize.min.js"></script>
-  <script src="../js/init.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+  <script>
+	  jQuery("input.numero")
+	  .mask("(99) 9999-9999?9")
+	  .focusout(function (event) {  
+	      var target, phone, element;  
+	      target = (event.currentTarget) ? event.currentTarget : event.srcElement;  
+	      phone = target.value.replace(/\D/g, '');
+	      element = $(target);  
+	      element.unmask();  
+	      if(phone.length > 10) {  
+	          element.mask("(99) 9?9999-9999");  
+	      } else {  
+	          element.mask("(99) 9999-9999");  
+	      }  
+	  });
+  </script>
 
   </body>
 </html>

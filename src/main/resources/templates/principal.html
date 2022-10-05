@@ -14,18 +14,46 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
+
+    <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+	<li><a href="/cadastropessoa">Pessoa</a></li>
+	<li><a href="#!">two</a></li>
+	<li><a href="#!">three</a></li>
+  </ul>
+  <nav>
+	<div class="nav-wrapper light-blue lighten-1">
+	  <div class="nav-wrapper container">
+	    <a href="#!" class="brand-logo container">Logo</a>
+	    <ul class="right hide-on-med-and-down">
+	       <!-- Dropdown Trigger -->
+	      <li>
+	      	<a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastros
+	      		<i class="material-icons right">arrow_drop_down</i>
+	      	</a>
+	      </li>
+	      <li><a href="sass.html">Sass</a></li>
+	      <li><a href="badges.html">Components</a></li>
+	    </ul>
+	  </div>
 	</div>
   </nav>
-      
-  <footer class="page-footer orange">
+  
+  <!-- Parte central da página -->
+  <div class="container">
+    <div class="section">
+    
+    	<h1>Página Principal</h1>
+    
+    </div>
+  </div>
+	
+  <footer class="page-footer light-blue darken-1">
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      	Desenvolvido por Leandro Amorim
+      	<a class="orange-text text-lighten-3" href="https://github.com/lheanndroaluno/spring-boot-ats.git"> 
+      	Acesse meu GitHub para ver o código.</a>
       </div>
     </div>
   </footer>
@@ -33,7 +61,10 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script>
+  	$(".dropdown-trigger").dropdown();
+
+  </script>
 
   </body>
 </html>
