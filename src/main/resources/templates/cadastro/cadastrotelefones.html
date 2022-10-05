@@ -100,9 +100,9 @@
 						<th th:text="${tel.operadora}"></th>
 						<th th:text="${tel.tipo}"></th>
 						
-						<th><!-- th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}" -->
+						<th><!--  -->
 							<a class="btn-floating  waves-effect waves-light red"
-							>
+								th:href="@{/removertelefone/{idtelefone}(idtelefone=${tel.id})}">
 							<i class="material-icons right">delete_forever</i></a>
 						</th>
 					</tr>
