@@ -1,5 +1,6 @@
 package com.curso.springboot.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,9 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.curso.springboot.service.ImplementacaoUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private ImplementacaoUserDetailsService userDetailsService;
 
 	@Override /* Configura as solicitações de acesso por http*/
 	protected void configure(HttpSecurity http) throws Exception {
@@ -36,11 +42,18 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth
+		.userDetailsService(userDetailsService)
+		.passwordEncoder(new BCryptPasswordEncoder());
+		
+		
+		/*
+		auth
 		.inMemoryAuthentication()
 		.passwordEncoder(new BCryptPasswordEncoder())
 		.withUser("admin")
 		.password("$2a$10$9V2gOOWzyGRhpcd/gwFNne..IXqNtc2d/t0tZcwqIbLqE/wrKlAcq")
 		.roles("ADMIN");
+		*/
 	}
 	
 	@Override/* Ignora url's específicas*/

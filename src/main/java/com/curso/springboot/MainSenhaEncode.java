@@ -7,7 +7,7 @@ public class MainSenhaEncode {
 	public static void main(String[] args) {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String resultadoEncoder = encoder.encode("admin");
+		String resultadoEncoder = encoder.encode("leandro");
 		System.out.println(resultadoEncoder);
 	}
 
