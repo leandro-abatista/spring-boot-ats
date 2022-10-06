@@ -1,151 +1,195 @@
 <!DOCTYPE html>
-<html lang="pt-BR"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>App</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<title>App</title>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../css/styleCad.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+<!-- CSS  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link href="../css/materialize.css" type="text/css" rel="stylesheet"
+	media="screen,projection" />
+<link href="../css/style.css" type="text/css" rel="stylesheet"
+	media="screen,projection" />
+<link href="../css/styleCad.css" type="text/css" rel="stylesheet"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet"
+	href="../materialize/css/materialize.min.css" media="screen,projection" />
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="btn waves-effect waves-light red lighten-1" href="/cadastropessoa">
-        	<i class="material-icons right">reply</i>
-        Cadastro Pessoa</a></li>
-      </ul>
-	</div>
-  </nav>
-  
-  
-  <div class="container">
-    <div class="section">
-    	
-    	<div class="card-content  red lighten-1">
-    		<p class="pdetalhes">[ Detalhes da Pessoa ]</p>
-    	</div>
-    	<div class="card-content grey lighten-4">
-    		<div class="detalhes" th:each="p : ${objpessoa}">
-    			<p>ID : <span th:text="${p.id}"></span></p>
-    			<p>Nome : <span th:text="${p.nome}"></span></p>
-    			<p>Sobrenome : <span th:text="${p.sobrenome}"></span></p>
-    			<p>Idade : <span th:text="${p.idade}"></span></p>
-    		</div>
-    	</div>
-    	
-    	<div th:each="msg : ${mensagem}">
-    		<span th:text="${msg}"></span>
-    	</div>
-    	
-    	<div class="card-content  red lighten-1">
-    		<p class="pdetalhes">[ Cadastro de Telefones ]</p>
-    	</div>
-    	<div class="card-content grey lighten-4">
-    		<form id="formTelefone" class="formTelefone"
-    			th:action="@{/addtelefonepessoa/{pessoaid}(pessoaid=${objpessoa.id})}" method="post">
-				
-				<div class="row">
-					<div class="input-field col s4">
-						<label for="numero">Número:</label>
-						<input class="numero" type="text" id="numero" name="numero">
-					</div>
-					
-					<div class="input-field col s4">
-						<label for="operadora">Operadora:</label>
-						<input type="text" id="operadora" name="operadora">
-					</div>
-					
-					<div class="input-field col s4">
-						<label for="tipo">Tipo:</label>
-						<input type="text" id="tipo" name="tipo">
-					</div>
-				</div>
-				
-				<div class="row">
-					<button class="btn waves-effect waves-light blue darken-3" type="submit"
-						onclick="document.getElementById('formTelefone').reset();">Novo
-					   <i class="material-icons right">autorenew</i>
-					</button>
-					
-					<button class="btn waves-effect waves-light green accent-3" type="submit" name="salvar">Salvar
-					   <i class="material-icons right">save</i>
-					</button>
-				</div>
-			</form>
-    	</div>
-    	
-    	<div class="card-content  red lighten-1">
-    		<p class="pdetalhes">[ Telefones Cadastrados ]</p>
-    	</div>
-    	<div class="card-content grey lighten-4">
-    		<table id="table-2" class="tabelaTelefone">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Número</th>
-						<th>Operadora</th>
-						<th>Tipo</th>
-						<th>Excluir</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="tel : ${telefones}">
-						<th th:text="${tel.id}"></th>
-						<th th:text="${tel.numero}"></th>
-						<th th:text="${tel.operadora}"></th>
-						<th th:text="${tel.tipo}"></th>
-						
-						<th><!--  -->
-							<a class="btn-floating  waves-effect waves-light red"
-								th:href="@{/removertelefone/{idtelefone}(idtelefone=${tel.id})}">
-							<i class="material-icons right">delete_forever</i></a>
-						</th>
-					</tr>
-				</tbody>
-				<tfoot>
-				</tfoot>
-			</table>
-    	</div>
-    	
-    	
-    </div>
-  </div>	
-      
-  <footer class="page-footer light-blue darken-1">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">ArfaxTechSoft</h5>
-          <p class="grey-text text-lighten-4">Projeto desenvolvido usando as principais tecnologias do mercado. Spring Boot - Thymeleaf - Material Design Lite</p>
+	<nav class="light-blue lighten-1" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a class="btn waves-effect waves-light red lighten-1"
+					href="/cadastropessoa"> <i class="material-icons right">reply</i>
+						Cadastro Pessoa
+				</a></li>
+			</ul>
 		</div>
-	  </div>
+	</nav>
+
+
+	<div class="container">
+		<div class="section">
+
+			<div class="card-content  red lighten-1">
+				<p class="pdetalhes">[ Detalhes da Pessoa ]</p>
+			</div>
+			<div class="card-content grey lighten-4">
+				<div class="detalhes" th:each="p : ${objpessoa}">
+					<p>
+						ID : <span th:text="${p.id}"></span>
+					</p>
+					<p>
+						Nome : <span th:text="${p.nome}"></span>
+					</p>
+					<p>
+						Sobrenome : <span th:text="${p.sobrenome}"></span>
+					</p>
+					<p>
+						Idade : <span th:text="${p.idade}"></span>
+					</p>
+				</div>
+			</div>
+
+			<th:block th:include="mensagem"></th:block>
+
+			<div class="card-content  red lighten-1">
+				<p class="pdetalhes">[ Cadastro de Telefones ]</p>
+			</div>
+			<div class="card-content grey lighten-4">
+				<form id="formTelefone" class="formTelefone"
+					onsubmit="return validarCampos() ? true : false"
+					th:action="@{/addtelefonepessoa/{pessoaid}(pessoaid=${objpessoa.id})}"
+					method="post">
+
+					<div class="row">
+						<div class="input-field col s4">
+							<label for="numero">Número:</label> <input class="numero"
+								type="text" id="numero" name="numero">
+						</div>
+
+						<div class="input-field col s4">
+							<label for="operadora">Operadora:</label> <input type="text"
+								id="operadora" name="operadora">
+						</div>
+
+						<div class="input-field col s4">
+							<label for="tipo">Tipo:</label> <input type="text" id="tipo"
+								name="tipo">
+						</div>
+					</div>
+
+					<div class="row">
+						<button class="btn waves-effect waves-light blue darken-3"
+							type="submit"
+							onclick="document.getElementById('formTelefone').reset();">
+							Novo <i class="material-icons right">autorenew</i>
+						</button>
+
+						<button class="btn waves-effect waves-light green accent-3"
+							type="submit" name="salvar">
+							Adicionar <i class="material-icons right">add_box</i>
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="card-content  red lighten-1">
+				<p class="pdetalhes">[ Telefones Cadastrados ]</p>
+			</div>
+			<div class="card-content grey lighten-4">
+				<table id="table-2" class="tabelaTelefone">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Número</th>
+							<th>Operadora</th>
+							<th>Tipo</th>
+							<th>Excluir</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tel : ${telefones}">
+							<th th:text="${tel.id}"></th>
+							<th th:text="${tel.numero}"></th>
+							<th th:text="${tel.operadora}"></th>
+							<th th:text="${tel.tipo}"></th>
+
+							<th>
+								<!--  --> <a class="btn-floating  waves-effect waves-light red"
+								th:href="@{/removertelefone/{idtelefone}(idtelefone=${tel.id})}">
+									<i class="material-icons right">delete_forever</i>
+							</a>
+							</th>
+						</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+
+
+		</div>
 	</div>
 
-    <div class="footer-copyright">
-      <div class="container">
-      	Desenvolvido por Leandro Amorim
-      	<a class="orange-text text-lighten-3" href="https://github.com/lheanndroaluno/spring-boot-ats.git"> 
-      	Acesse meu GitHub para ver o código.</a>
-      </div>
-    </div>
-  </footer>
+	<footer class="page-footer light-blue darken-1">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">ArfaxTechSoft</h5>
+					<p class="grey-text text-lighten-4">Projeto desenvolvido usando
+						as principais tecnologias do mercado. Spring Boot - Thymeleaf -
+						Material Design Lite</p>
+				</div>
+			</div>
+		</div>
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="../js/materialize.js"></script>
-  <script src="../js/materialize.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-  <script>
+		<div class="footer-copyright">
+			<div class="container">
+				Desenvolvido por Leandro Amorim <a
+					class="orange-text text-lighten-3"
+					href="https://github.com/lheanndroaluno/spring-boot-ats.git">
+					Acesse meu GitHub para ver o código.</a>
+			</div>
+		</div>
+	</footer>
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="../js/materialize.js"></script>
+	<script src="../js/materialize.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+	<script>
+
+	  function validarCampos(){
+		numero = document.getElementById('numero').value;
+		operadora = document.getElementById('operadora').value;
+		tipo = document.getElementById('tipo').value;
+
+		if(numero === '' ){
+			alert('O campo número deve ser informado!');
+			return false;
+		} else if(operadora === ''){
+			alert('O campo operadora deve ser informado!');
+			return false;
+		} else if(tipo === ''){
+			alert('O campo tipo deve ser informado!');
+			return false;
+		}
+
+		return true;
+	  }
+
+  
 	  jQuery("input.numero")
 	  .mask("(99) 9999-9999?9")
 	  .focusout(function (event) {  
@@ -162,5 +206,5 @@
 	  });
   </script>
 
-  </body>
+</body>
 </html>

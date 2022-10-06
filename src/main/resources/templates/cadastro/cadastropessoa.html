@@ -28,9 +28,7 @@
   <div class="container">
     <div class="section">
     
-    	<div th:each="msg : ${mensagem}">
-    		<span th:text="${msg}"></span>
-    	</div>
+    	<th:block th:include="mensagem"></th:block>
     	
     	<div class="card-content  red lighten-1">
     		<p class="pdetalhes">[ Cadastro de Pessoas ]</p>
@@ -161,7 +159,9 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../js/materialize.js"></script>
   <script src="../js/materialize.min.js"></script>
-  <script src="../js/init.js"></script>
+  <script>
+  	
+  </script>
 
   </body>
 </html>

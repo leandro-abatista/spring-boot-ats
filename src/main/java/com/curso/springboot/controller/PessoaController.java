@@ -151,28 +151,37 @@ public class PessoaController {
 	}
 	
 	@PostMapping("**/addtelefonepessoa/{pessoaid}")
-	public ModelAndView addFonePessoa(@Valid Telefone telefone, 
-									  @PathVariable("pessoaid") Long pessoaid,
-									  BindingResult result) {
+	public ModelAndView addFonePessoa(Telefone telefone, 
+									  @PathVariable("pessoaid") Long pessoaid) {
 		
 		Pessoa pessoa = pessoaRepository.findById(pessoaid).get();
-		telefone.setPessoa(pessoa);
-		telefoneRepository.save(telefone);
 		
-		if (result.hasErrors()) {
+		if (telefone != null && telefone.getNumero().isEmpty()
+				|| telefone.getOperadora().isEmpty()
+				|| telefone.getTipo().isEmpty()) {
+			
 			ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
 			view.addObject("objpessoa", pessoa);
 			view.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
 			
 			List<String> mensagem = new ArrayList<>();
-			for (ObjectError objectError : result.getAllErrors()) {
-				mensagem.add(objectError.getDefaultMessage());/*Vem das anotações da classe pessoa*/
+			if(telefone.getNumero().isEmpty()) {
+				mensagem.add("O campo número deve ser informado");
 			}
 			
-			view.addObject("mensagem", mensagem);/*Envia as mensagem para a tela do usuário*/
+			if(telefone.getOperadora().isEmpty()) {
+				mensagem.add("O campo operadora deve ser informado");
+			}
 			
+			if(telefone.getTipo().isEmpty()) {
+				mensagem.add("O campo tipo deve ser informado");
+			}
+			view.addObject("mensagem", mensagem);
 			return view;
 		}
+		
+		telefone.setPessoa(pessoa);
+		telefoneRepository.save(telefone);
 		
 		ModelAndView view = new ModelAndView("cadastro/cadastrotelefones");
 		view.addObject("objpessoa", pessoa);
