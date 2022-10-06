@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -36,9 +37,9 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		
 		auth
 		.inMemoryAuthentication()
-		.passwordEncoder(NoOpPasswordEncoder.getInstance())
+		.passwordEncoder(new BCryptPasswordEncoder())
 		.withUser("admin")
-		.password("admin")
+		.password("$2a$10$9V2gOOWzyGRhpcd/gwFNne..IXqNtc2d/t0tZcwqIbLqE/wrKlAcq")
 		.roles("ADMIN");
 	}
 	
