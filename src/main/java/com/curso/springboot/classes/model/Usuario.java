@@ -2,11 +2,17 @@ package com.curso.springboot.classes.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,10 +29,16 @@ public class Usuario implements Serializable, UserDetails {
 	private String login;
 
 	private String senha;
+	
+	@OneToMany(fetch = FetchType.EAGER)// sempre carregar
+	@JoinTable(name = "usuarios_role",
+			joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario"),
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role_acesso"))//cria a tabela de acesso do usuário
+	private List<RoleAcesso> roleAcessos;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return roleAcessos;
 	}
 
 	@Override
@@ -83,4 +95,22 @@ public class Usuario implements Serializable, UserDetails {
 		this.senha = senha;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	
 }
