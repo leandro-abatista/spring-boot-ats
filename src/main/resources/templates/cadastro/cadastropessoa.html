@@ -8,13 +8,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>App</title>
+  
+  <!-- Adicionando JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<!--   <link href="../materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+<!--   <link href="../materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
   <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../css/styleCad.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
@@ -37,6 +42,10 @@
     	<div class="card-content grey lighten-4">
 			<form id="formPessoa" class="formPessoa" action="salvarpessoa" method="post" th:object="${objpessoa}">
 				
+				<div class="card-content  red lighten-1">
+		    		<span class="espaco">Dados Pessoais</span>
+		    	</div>
+				
 				<div class="row">
 					<div class="input-field col s3">
 						<label for="id">ID:</label>
@@ -47,20 +56,67 @@
 				<div class="row">
 					<div class="input-field col s6">
 						<label for="nome">Nome:</label>
-						<input type="text" id="nome" name="nome" th:field="*{nome}" placeholder="Digite seu nome">
+						<input type="text" id="nome" name="nome" th:field="*{nome}" placeholder="Nome">
 					</div>
 					
 					<div class="input-field col s6">
 						<label for="sobrenome">Sobrenome:</label>
 						<input type="text" id="sobrenome" name="sobrenome" th:field="*{sobrenome}" 
-							placeholder="Digite seu sobrenome">
+							placeholder="Sobrenome">
 					</div>
 				</div>
 				
-				<div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+				<div class="row" sec:authorize="hasAnyRole('ROLE_ADMIN')">
 					<div class="input-field col s6">
 						<label for="idade">Idade:</label>
-						<input type="text" id="idade" name="idade" th:field="*{idade}" placeholder="Digite sua idade">
+						<input type="text" id="idade" name="idade" th:field="*{idade}" placeholder="Idade">
+					</div>
+				</div>
+				
+				<div class="card-content  red lighten-1">
+		    		<span class="espaco">Dados do Endereço</span>
+		    	</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="cep">CEP:</label>
+						<input type="text" id="cep" name="cep" th:field="*{cep}"  placeholder="Digite um cep"
+							maxlength="8">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="rua">Logradouro:</label>
+						<input type="text" id="rua" name="rua" th:field="*{rua}" placeholder="Logradouro">
+					</div>
+					
+					<div class="input-field col s2">
+						<label for="numero">Número:</label>
+						<input type="text" id="numero" name="numero" th:field="*{numero}" placeholder="Número">
+					</div>
+					
+					<div class="input-field col s4">
+						<label for="bairro">Bairro:</label>
+						<input type="text" id="bairro" name="bairro" th:field="*{bairro}" placeholder="Bairro">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s5">
+						<label for="cidade">Cidade:</label>
+						<input type="text" id="cidade" name="cidade" th:field="*{cidade}" placeholder="Cidade">
+					</div>
+					
+					<div class="input-field col s2">
+						<label for="uf">Estado:</label>
+						<input type="text" id="uf" name="uf" th:field="*{uf}" placeholder="Estado">
+					</div>
+					
+					<div class="input-field col s5">
+						<label for="complemento">Complemento:</label>
+						<input type="text" id="complemento" name="complemento" th:field="*{complemento}" 
+							placeholder="Complemento">
 					</div>
 				</div>
 				
@@ -87,7 +143,7 @@
 				<div class="row">
 					<div class="input-field col s6">
 						<label for="pesquisanome">Pesquisa por nome:</label>
-						<input type="text" id="pesquisanome" name="nomepesquisa">
+						<input type="text" id="pesquisanome" name="nomepesquisa" placeholder="Informe um nome para pesquisa">
 					</div>
 					
 					<div class="input-field col s6">
@@ -161,7 +217,71 @@
   <script src="../js/materialize.js"></script>
   <script src="../js/materialize.min.js"></script>
   <script>
-  	
+
+  $(document).ready(function() {
+
+      function limpa_formulário_cep() {
+          // Limpa valores do formulário de cep.
+          $("#rua").val("");
+          $("#bairro").val("");
+          $("#cidade").val("");
+          $("#uf").val("");
+          $("#ibge").val("");
+      }
+      
+      //Quando o campo cep perde o foco.
+      $("#cep").blur(function() {
+
+          //Nova variável "cep" somente com dígitos.
+          var cep = $(this).val().replace(/\D/g, '');
+
+          //Verifica se campo cep possui valor informado.
+          if (cep != "") {
+
+              //Expressão regular para validar o CEP.
+              var validacep = /^[0-9]{8}$/;
+
+              //Valida o formato do CEP.
+              if(validacep.test(cep)) {
+
+                  //Preenche os campos com "..." enquanto consulta webservice.
+                  $("#rua").val("...");
+                  $("#bairro").val("...");
+                  $("#cidade").val("...");
+                  $("#uf").val("...");
+                  $("#ibge").val("...");
+
+                  //Consulta o webservice viacep.com.br/
+                  $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                      if (!("erro" in dados)) {
+                          //Atualiza os campos com os valores da consulta.
+                          $("#rua").val(dados.logradouro);
+                          $("#bairro").val(dados.bairro);
+                          $("#cidade").val(dados.localidade);
+                          $("#uf").val(dados.uf);
+                          $("#ibge").val(dados.ibge);
+                      } //end if.
+                      else {
+                          //CEP pesquisado não foi encontrado.
+                          limpa_formulário_cep();
+                          alert("CEP não encontrado.");
+                      }
+                  });
+              } //end if.
+              else {
+                  //cep é inválido.
+                  limpa_formulário_cep();
+                  alert("Formato de CEP inválido.");
+              }
+          } //end if.
+          else {
+              //cep sem valor, limpa formulário.
+              limpa_formulário_cep();
+          }
+      });
+  });
+	
   </script>
 
   </body>

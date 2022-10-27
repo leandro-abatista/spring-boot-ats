@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../css/styleCad.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+ 
+<!--   <link href="/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+<!--   <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="section">
+
+  		<div class="card-content  red lighten-1">
+    		<p class="pdetalhes">Acesso ao sistema</p>
+    	</div>
+    	
+    	<div class="card-content grey lighten-4">
+			<form id="formlogin" class="login" th:action="@{/login}" method="post">
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<label for="username">Login:</label>
+						<input type="text" id="username" name="username">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<label for="password">Senha:</label>
+						<input type="password" id="password" name="password">
+					</div>
+				</div>
+				
+				<div class="row">
+					
+					<button class="btn waves-effect waves-light green accent-3 right" type="submit" name="acessar">Acessar
+					   <i class="material-icons right">input</i>
+					</button>
+					
+				</div>
+			
+			</form>
+		</div>
+		
+	</div>
+  </div>
+  
+  	
+  
+  <footer class="page-footer  light-blue darken-1">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">ArfaxTechSoft</h5>
+          <p class="grey-text text-lighten-4">Projeto desenvolvido usando as principais tecnologias do mercado. Spring Boot - Thymeleaf - Material Design Lite</p>
+		</div>
+	  </div>
+	</div>
+
+    <div class="footer-copyright">
+      <div class="container">
+      	Desenvolvido por Leandro Amorim
+      	<a class="orange-text text-lighten-3" href="https://github.com/lheanndroaluno/spring-boot-ats.git"> 
+      	Acesse meu GitHub para ver o código.</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/materialize/js/materialize.js"></script>
+  <script src="/materialize/js/materialize.min.js"></script>
+  <script>
+  	
+  </script>
+		
+  </body>
+</html>

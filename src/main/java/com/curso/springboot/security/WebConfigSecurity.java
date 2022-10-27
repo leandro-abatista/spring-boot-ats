@@ -26,15 +26,16 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		
 		http
 		.csrf()
-		.disable()// desabilita as configurações padrão de memória do spring
-		.authorizeRequests()// permitir restringir acessos
-		.antMatchers(HttpMethod.GET, "/").permitAll() //qualquer usuário acessa a página
-		.antMatchers(HttpMethod.GET, "cadastropessoa").hasAnyRole("ROLE_ADMIN")
+		.disable()//Desativa as configurções padrão de memória do spring.
+		.authorizeRequests() //permite restringir acessos
+		.antMatchers(HttpMethod.GET, "/").permitAll()//qualquer usuário acessa a página inicial
+		//.antMatchers(HttpMethod.GET, "/cadastropessoa").hasRole("ROLE_ADMIN")//SÓ TEM ACESSO A PÁGINA cadastropessoa, O USUÁRIO ADMIN
 		.anyRequest().authenticated()
-		.and()
-		.formLogin().permitAll()//permiti qualquer usuário
-		.and()
-		.logout() //mapeia a url de sair do sistema e invalida o usuário autenticado
+		.and().formLogin().permitAll()//pagina de login//permite qualquer usuario
+		.loginPage("/login")
+		.defaultSuccessUrl("/principal")//depois que realizar o login e tiver acesso, aí vai para a tela de cadastro
+		.failureUrl("/login?error=true")//se falhar, volta para a tela de login novamente
+		.and().logout().logoutSuccessUrl("/login")//mapeia URL para sair do sistema e invalida o usuario autenticado
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 		
 	}
@@ -60,7 +61,10 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	@Override/* Ignora url's específicas*/
 	public void configure(WebSecurity web) throws Exception {
 		
-		web.ignoring()
-		.antMatchers("/materialize/**");
+		web
+		.ignoring()
+		.antMatchers("/materialize/**")
+		.antMatchers(HttpMethod.GET,"/resources/**","/static/**", "/**");
 	}
+	
 }

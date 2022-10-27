@@ -34,7 +34,8 @@ public class PessoaController {
 	
 	@GetMapping("/principal")
 	public String principal() {
-		return "principal";
+
+		return "/principal";
 	} 
 
 	/**
